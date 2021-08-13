@@ -3,10 +3,19 @@ from . import main
 from flask_login import login_required,current_user
 from ..models import User
 from .. import db,photos
-from .forms import UpdateProfile  
+from .forms import UpdateProfile,PitchForm
 
 
 @main.route('/')
+def landing():
+    '''
+    Greeting and landing page when a user launches the application
+    '''
+    title = "ThinkTank"
+    return render_template('landing.html', title=title)
+
+
+@main.route('/home')
 def home():
     '''
     Home page
@@ -17,6 +26,14 @@ def home():
     title = 'ThinkTank'
 
     return render_template('index.html', title = title, message = message)
+
+@main.route('/category')
+def category():
+    '''
+    Category Page
+    '''
+    pitch_form = PitchForm()
+    
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()

@@ -2,6 +2,7 @@ from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from datetime import datetime
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
@@ -13,6 +14,8 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
+    pitch = db.relationship('Pitch',backref='user',lazy="dynamic")
+    comment_id = db.relationship('Comment',backref = 'list',lazy="dynamic")
 
     @property
     def password(self):
@@ -34,10 +37,45 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-# class Pitch(db.Model):
+class Category(db.Model):
+    '''
+    Class will hold te category items
+    '''
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer,primary_key = True)
+    category = db.Column(db.String(255))
+    pitches = db.relationship('Pitch',backref = 'category',lazy="dynamic")
     
-#     __tablename__ = 'pitch'
 
-#     id = db.Column(db.Integer)
-#     category_id = db.Column(db.Integer,db.Foreignkey("category.id"))
-#     pitch_content = db.Column(db.String(255))
+    def __repr__(self):
+        return f'User {self.name}'
+
+class Pitch(db.Model):
+    
+    __tablename__ = 'pitches'
+
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer,db.ForeignKey('categories.id'))
+    comments = db.relationship('Comment',backref= 'pitch',lazy="dynamic")
+    posted = db.Column(db.DateTime, default=datetime.utcnow)
+    pitch_content = db.Column(db.String(255))
+    upVote = db.Column(db.Integer,default= 0 )
+    downVote= db.Column(db.Integer,default = 0)
+
+    def __repr__(self):
+        return f'User {self.name}'
+      
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    user = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    com_write = db.Column(db.String(255))
+
+    
+
+    def __repr__(self):
+        return f'User {self.name}'
