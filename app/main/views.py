@@ -1,14 +1,16 @@
 from flask import render_template,request,redirect,url_for
-
 from . import main
-from flask_login import login_required
+from flask_login import login_required,current_user
 
 
-@main.route('/')
+@main.route('/home')
 def home():
     '''
     Home page
     '''
+    if current_user is None:
+        return redirect(url_for('auth.register'))
+
 
     message = 'Your time starts now'
     title = 'ThinkTank'
