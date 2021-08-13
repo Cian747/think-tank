@@ -9,5 +9,7 @@ def home():
     '''
     Home page
     '''
+
+    message = 'Your time starts now'
     title = 'ThinkTank'
-    return render_template('Index.html')
+    return render_template('index.html', title = title, message = message)
