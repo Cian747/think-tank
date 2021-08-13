@@ -1,0 +1,13 @@
+from flask import render_template,request,redirect,url_for
+# from ..services import 
+from ..models import Review
+from .forms import ReviewForm
+from . import main
+from flask_login import login_required
+
+
+@main.route('/')
+def home():
+    '''
+    
+    '''
