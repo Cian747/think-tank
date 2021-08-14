@@ -44,7 +44,6 @@ class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer,primary_key = True)
     category = db.Column(db.String(255))
-    pitches = db.relationship('Pitch',backref = 'category',lazy="dynamic")
     
 
     def __repr__(self):
@@ -56,7 +55,7 @@ class Pitch(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    category_id = db.Column(db.Integer,db.ForeignKey('categories.id'))
+    category_name = db.Column(db.String(255))
     comments = db.relationship('Comment',backref= 'pitch',lazy="dynamic")
     posted = db.Column(db.DateTime, default=datetime.utcnow)
     pitch_content = db.Column(db.String(255))
