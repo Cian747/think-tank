@@ -27,13 +27,53 @@ def home():
 
     return render_template('index.html', title = title, message = message)
 
-@main.route('/category')
-def category():
+@main.route('/Business', methods = ['GET', 'POST'])
+@login_required
+def business():
     '''
     Category Page
     '''
+  
     pitch_form = PitchForm()
-    
+
+    if pitch_form.validate_on_submit():
+        user = User.query.filter_by(username = current_user.username).first()
+        user.pitch_content = pitch_form.pitch_content.data
+
+        db.session.add(user)
+        db.session.commit()
+
+    Business = 'Business'
+
+    return render_template('category.html', categories = Business, pitch_form = pitch_form)
+
+@main.route('/category',methods = ['GET', 'POST'])
+def creative():
+    '''
+    Category Page
+    '''
+    Social = 'Category'
+
+    return render_template('category.html', categories = Social)
+
+@main.route('/category',methods = ['GET', 'POST'])
+def sports():
+    '''
+    Category Page
+    '''
+    Sports = 'Category'
+
+    return render_template('category.html', categories = Sports)
+
+@main.route('/category',methods = ['GET', 'POST'])
+def youth():
+    '''
+    Category Page
+    '''
+    Youth = 'Category'
+
+    return render_template('category.html', categories = Youth )
+
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()

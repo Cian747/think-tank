@@ -14,7 +14,16 @@
       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       <p class="card-text">Last updated 3 mins ago</p>
 
-      <a href=""><button class=" btn btn-danger"></button></a>
+      {%if current_user.is_authenticated %}
+      <div class="button" style="display: flex; margin: 3px;">
+        <a href="{{ url_for('main.business') }}"><button class=" btn btn-danger">Business Pitch</button></a>
+        <a href="{{ url_for('main.sports') }}"><button class=" btn btn-primary">Creative(Arts)</button></a>
+        <a href="{{ url_for('main.creative') }}"><button class=" btn btn-success">Sports</button></a>
+        <a href="{{ url_for('main.youth') }}"><button class=" btn btn-dark">Youth</button></a>
+      </div>
+      {% else %}
+        <h1>SIGN IN TO VIEW CATEGORIES</h1>
+      {% endif %}
     </div>
   </div>
 
