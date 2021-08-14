@@ -1,0 +1,20 @@
+{% macro displayPitches(pitches) %}
+
+    {% for pitch in pitches %}
+    
+    <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+          </div>
+          <div class="flip-card-back">
+            <h1>{{ pitch.category_name }}</h1>
+            <h3>{{ pitch.user.username }}</h3>
+            <p>{{ pitch.pitch_content }}</p>
+            <p>{{ pitch.posted }}</p>
+          </div>
+        </div>
+      </div>
+      <a href="{{ url_for('main.detail',id=pitch.id)}}"><button class="btn btn-primary">Read more</button></a>
+    {% endfor %}
+
+{% endmacro %}

@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
 from flask_login import login_required,current_user
-from ..models import User,Pitch
+from ..models import Comment, User,Pitch
 from .. import db,photos
-from .forms import UpdateProfile,PitchForm
+from .forms import CommentForm, UpdateProfile,PitchForm
 
 
 @main.route('/')
@@ -27,50 +27,13 @@ def home():
 
     return render_template('index.html', title = title, message = message)
 
-@main.route('/pitch')
+@main.route('/pitches', methods=['GET','POST'])
 @login_required
-def pitch(usname):
-    user = User.query.filter_by(username = usname).first()
+def pitch():
+    
+    
+    pitches = Pitch.query.all()
 
-    if user is None:
-        abort(404)
-
-    pitch_form = PitchForm()
-	
-    if pitch_form.validate_on_submit():
-        if pitch_form.category_name.data == 'Business':
-            pitch = Pitch( category_id = pitch_form.category_name.data ,pitch_content = pitch_form.pitch_content )
-            db.session.add(pitch)
-            db.session.commit()
-            
-        elif pitch_form.category_name.data == 'sports':
-            pitch = Pitch(category_id = pitch_form.category_name.data ,pitch_content = pitch_form.pitch_content)
-            db.session.add(pitch)
-            db.session.commit()
-            
-        elif pitch_form.category_name.data == 'youth':
-            pitch = Pitch(category_id = pitch_form.category_name.data,pitch_content = pitch_form.pitch_content )
-            db.session.add(pitch)
-            db.session.commit()
-        
-        elif pitch_form.category_name.data == 'creative':
-            pitch = Pitch(category_id = pitch_form.category_name.data  ,pitch_content =pitch_form.pitch_content )
-            db.session.add(pitch)
-            db.session.commit()
-
-        else:
-            flash('Fill in the fields correctly')
-                
-            return redirect(url_for('main.home'))
-
-@main.route('/Business', methods = ['GET', 'POST'])
-@login_required
-def business():
-
-    '''
-    Category Page
-    '''
-  
     pitch_form = PitchForm()
 	
     if pitch_form.validate_on_submit():
@@ -78,19 +41,54 @@ def business():
         db.session.add(pitch)
         db.session.commit()
 
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.pitch'))
+	
+
+    return render_template('pitch.html',pitches = pitches, pitch_form = pitch_form)
+
+@main.route('/Business', methods = ['GET', 'POST'])
+@login_required
+def business(catname):
+    '''
+    Category Page
+    '''
+    comment = Comment.query.filter_by(category_name = catname).first()
+    pitch_form = PitchForm()
+	
+    if pitch_form.validate_on_submit():
+        pitch = Pitch(pitch_content = pitch_form.pitch.data,category_name = pitch_form.category.data,user = current_user)
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect(url_for('main.pitch'))
 
 
     Business = 'Business'
 
-    return render_template('category.html', categories = Business, pitch_form = pitch_form)
+    return render_template('category.html', categories = Business, pitch_form = pitch_form,comment = comment)
+
+
+@main.route('/pitch/detail/<int:id>', methods = ['GET','POST'])
+def detail(id):
+    '''
+    Displays specific pitch detail
+    '''
+    one_pitch = Pitch.query.filter_by(id = id).first()
+
+    com_form = CommentForm()
+    if com_form.validate_on_submit():
+        comments = Comment(com_write = com_form.comment.data)
+        db.session.add(comments)
+        db.session.commit()
+
+    return render_template('pitch-detail.html',one_pitch = one_pitch,com_form = com_form)
 
 @main.route('/category',methods = ['GET', 'POST'])
 def creative():
     '''
     Category Page
     '''
-    Social = 'Category'
+    Social = 'social'
 
     return render_template('category.html', categories = Social)
 
@@ -99,9 +97,11 @@ def sports():
     '''
     Category Page
     '''
-    Sports = 'Category'
+    Sports = 'sports'
+    single_pitch = Pitch.query.filter_by(category=Sports).all()
+  
 
-    return render_template('category.html', categories = Sports)
+    return render_template('category.html', single_pitch = single_pitch)
 
 @main.route('/category',methods = ['GET', 'POST'])
 def youth():
@@ -156,3 +156,23 @@ def update_pic(uname):
                     db.session.commit()
                     
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/review/<int:id>',methods = ['GET','POST'])
+def thumbs_up(id):
+    pitch = Pitch.query.filter_by(id = id)
+    if pitch.upVote is None:
+        pitch.upVote = pitch.upVote + 1
+        db.session.add(pitch)
+        db.session.commit()
+    return redirect(url_for('main.thumbs_up'))
+
+
+@main.route('/review/<int:id>',methods = ['GET','POST'])
+def thumbs_down(id):
+    pitch = Pitch.query.get(id)
+    if pitch.downVote is None:
+        pitch.downVote = pitch.downVote + 1
+        db.session.add(pitch)
+        db.session.commit()
+    return redirect(url_for('main.thumbs_down'))
+

@@ -17,8 +17,8 @@
       {%if current_user.is_authenticated %}
       <div class="button" style="display: flex; margin: 3px;">
         <a href="{{ url_for('main.business') }}"><button class=" btn btn-danger">Business Pitch</button></a>
-        <a href="{{ url_for('main.sports') }}"><button class=" btn btn-primary">Creative(Arts)</button></a>
-        <a href="{{ url_for('main.creative') }}"><button class=" btn btn-success">Sports</button></a>
+        <a href="{{ url_for('main.creative') }}"><button class=" btn btn-primary">Creative(Arts)</button></a>
+        <a href="{{ url_for('main.sports') }}"><button class=" btn btn-success">Sports</button></a>
         <a href="{{ url_for('main.youth') }}"><button class=" btn btn-dark">Youth</button></a>
       </div>
       {% else %}

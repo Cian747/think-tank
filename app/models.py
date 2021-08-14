@@ -72,9 +72,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     user = db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
-    com_write = db.Column(db.String(255))
-
-    
+    com_write = db.Column(db.String(255))    
 
     def __repr__(self):
         return f'User {self.name}'

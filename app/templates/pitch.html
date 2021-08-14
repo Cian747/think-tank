@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import 'macros.html' as macro %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/pitch.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="col-md-7">
+
+    {{wtf.quick_form(pitch_form)}}
+
+</div>
+
+<div class="col-md-5">
+    <h1>Pitches</h1>
+
+    {{ macro.displayPitches(pitches) }}
+
+</div>
+
+
+{% endblock %}
