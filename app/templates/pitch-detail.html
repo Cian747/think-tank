@@ -14,16 +14,20 @@
 <div class='col-md-6'>
     <p>{{ one_pitch.category_name }}</p>
     <p>{{ one_pitch.pitch_content }}</p>
-</div>
+
 <div class="vote" style="font-size: 15px; display: flex;">
     <a href="{{url_for('main.thumbs_up', id = one_pitch.id)}}"><button class="btn btn-outline-primary" >upVote</button></a>
     <p>{{ one_pitch.upVote }}</p>
     <a action="{{url_for('main.thumbs_down', id = one_pitch.id)}}"><button class="btn btn-outline-danger" >Downvote</button></a>
     <p>{{ one_pitch.downVote }}</p>
   </div>
-
+</div>
 <div class="col-md-4">
+    {% if current_user.is_authenticated %}
     {{ wtf.quick_form(com_form) }}
+    {% else %}
+    <h1>SIGN IN TO MAKE A COMMENT</h1>
+    {% endif %}
 </div>
 
 <div class="col-md-2"></div>
