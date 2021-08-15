@@ -8,17 +8,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-md-7">
+<div class="col-md-5">
 
     {{wtf.quick_form(pitch_form)}}
 
 </div>
 
-<div class="col-md-5">
+<div class="col-md-7">
     <h1>Pitches</h1>
-
+    <div class="row">
     {{ macro.displayPitches(pitches) }}
-
+    </div>
 </div>
 
 

@@ -11,21 +11,22 @@
 
 {% block content %}
 
-<div class='col-md-5'>
+<div class='col-md-6'>
     <p>{{ one_pitch.category_name }}</p>
     <p>{{ one_pitch.pitch_content }}</p>
 </div>
-<div class="vote" style="font-size: 15px">
+<div class="vote" style="font-size: 15px; display: flex;">
     <a href="{{url_for('main.thumbs_up', id = one_pitch.id)}}"><button class="btn btn-outline-primary" >upVote</button></a>
     <p>{{ one_pitch.upVote }}</p>
-    <a href="{{url_for('main.thumbs_down', id = one_pitch.id)}}"><button class="btn btn-outline-danger" >Downvote</button></a>
+    <a action="{{url_for('main.thumbs_down', id = one_pitch.id)}}"><button class="btn btn-outline-danger" >Downvote</button></a>
     <p>{{ one_pitch.downVote }}</p>
   </div>
 
-
-<div class="col-md-7">
+<div class="col-md-4">
     {{ wtf.quick_form(com_form) }}
 </div>
+
+<div class="col-md-2"></div>
 
 
 {% endblock %}
