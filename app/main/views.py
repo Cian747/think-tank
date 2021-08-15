@@ -22,10 +22,11 @@ def home():
     '''
     if current_user is None:
         return redirect(url_for('auth.login'))
-    message = 'Your time starts now'
+
+    pitches = Pitch.query.filter(Pitch.id < 5).all()
     title = 'ThinkTank'
 
-    return render_template('index.html', title = title, message = message)
+    return render_template('index.html', title = title,pitches = pitches)
 
 @main.route('/pitches', methods=['GET','POST'])
 @login_required
@@ -152,11 +153,11 @@ def youth():
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-
+    pitches = Pitch.query.filter_by(user = current_user).all()
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", user = user,pitches = pitches)
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
