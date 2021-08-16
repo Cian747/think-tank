@@ -4,7 +4,7 @@
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/pitch.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
 </div>
 
 <div class="col-md-7">
-    <h1>Pitches</h1>
+    <h1 id="pitch-title">Pitches</h1>
     <div class="row">
     {{ macro.displayPitches(pitches) }}
     </div>
