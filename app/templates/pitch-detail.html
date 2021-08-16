@@ -6,15 +6,16 @@
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/pitch-detail.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
 {% endblock %}
 
 {% block content %}
 
-<div class='col-md-6'>
+<div class='col-md-6' id="comment">
+    <blockquote>
     <h1>{{ one_pitch.category_name }}</h1>
     <h3>{{ one_pitch.pitch_content }}</h3>
-
+    </blockquote>
 <div class="vote" style="font-size: 15px; display: flex;">
     <a href="{{url_for('main.thumbs_up', id = one_pitch.id)}}"><button class="btn btn-outline-primary" style="margin-right: 1rem">upVote {{ one_pitch.upVote }}</button></a><br>
     <p></p>
