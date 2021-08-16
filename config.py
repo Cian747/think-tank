@@ -23,8 +23,8 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
-# class TestConfig(Config):
-#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://cian:ms254@localhost/watchlist_test'
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://cian:ms254@localhost/thinktank_test'
 
 class ProdConfig(Config):
     '''
@@ -54,5 +54,5 @@ class DevConfig(Config):
 config_options = {
     'development': DevConfig,
     'production': ProdConfig,
-    # 'test': TestConfig
+    'tests': TestConfig
 }

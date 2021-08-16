@@ -53,16 +53,17 @@ def detail(id):
     '''
     Displays specific pitch detail
     '''
+    comments = Comment.query.get(id)
     one_pitch = Pitch.query.filter_by(id = id).first()
-
     com_form = CommentForm()
     if com_form.validate_on_submit():
-        comments = Comment(com_write = com_form.comment.data)
-        db.session.add(comments)
+        comment_write = Comment(com_write = com_form.comment.data)
+        db.session.add(comment_write)
         db.session.commit()
-    
+        return redirect(url_for('main.detail'), id = one_pitch.id)
+ 
 
-    return render_template('pitch-detail.html',one_pitch = one_pitch,com_form = com_form)
+    return render_template('pitch-detail.html',com_form = com_form,one_pitch = one_pitch,comments = comments)
 
 @main.route('/Business pitches', methods = ['GET', 'POST'])
 @login_required
@@ -215,4 +216,5 @@ def thumbs_down(id):
         db.session.add(pitch)
         db.session.commit()
     return redirect(url_for('main.thumbs_down'))
+
 

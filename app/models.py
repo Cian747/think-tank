@@ -62,6 +62,10 @@ class Pitch(db.Model):
     upVote = db.Column(db.Integer,default= 0 )
     downVote= db.Column(db.Integer,default = 0)
 
+    def save_pitch(self):
+        db.session.add(self)
+        db.session.commit()
+
     def __repr__(self):
         return f'User {self.name}'
       
@@ -72,7 +76,11 @@ class Comment(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     user = db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
-    com_write = db.Column(db.String(255))    
+    com_write = db.Column(db.String(255))  
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()  
 
     def __repr__(self):
         return f'User {self.name}'

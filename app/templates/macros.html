@@ -2,26 +2,24 @@
 
     {% for pitch in pitches %}
     <div class="col-md-6">
-    <div class="flip-card">
+    <div class="card">
         <div class="flip-card-inner">
-          <div class="flip-card-front">
-          </div>
-          <div class="flip-card-back">
+          <div class="card-body">
             <h3>Category: {{ pitch.category_name }}</h3>
-            <h3>User : {{ pitch.user.username }}</h3>
-            <p>{{ pitch.pitch_content }}</p>
-            <p> Posted on:{{ pitch.posted }}</p>
+            <cite><h3>User : {{ pitch.user.username }}</h3></cite>
+            <p class ='lead'>{{ pitch.pitch_content }}</p>
+            <cite class='text'><strong>Posted on:{{ pitch.posted }}</strong></cite>
           </div>
         </div>
       </div>
-      <a href="{{ url_for('main.detail',id=pitch.id)}}"><button class="btn btn-primary">Read more</button></a>
+      <a href="{{ url_for('main.detail',id=pitch.id)}}"><button class="btn btn-primary" style="margin-top: 10px;">Read & Comment</button></a>
     </div>
     {% endfor %}
 
 {% endmacro %}
 
-{% macro commentFound(comments) %}
-    {% for comment in comments %}
+{% macro commentFound(comments)  %}
+    {% for comment in comments or [] %}
     <div class="card">
         <h1>{{ comment.user.username }}</h1>
         <p class="title">{{ comment.com_write }}</p>
