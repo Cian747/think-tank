@@ -1,36 +1,116 @@
-{% extends 'base.html' %}
-{% import 'macros.html' as macro %}
+{% extends 'base.html' %} 
+{% import 'macros.html' as macro %} 
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}" />
 {% endblock %}
 
-{% block content %}
+ {% block content %}
 <div class="container-fluid">
-  <div class="jumbotron">
-    <h1>Welcome to ThinkTank</h1>
-    <p>Here at ThinkTank we encourage creative thinking and exploration in ideas and dreams.Lorem ipsum dolor sit amet,
-      consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
-
   <div class="row">
     <div class="col-md-6">
       <h2>Most recent Pitches:</h2>
       {{ macro.displayPitches(pitches) }}
     </div>
 
-
     {%if current_user.is_authenticated %}
+    <h1>Categories</h1>
     <div class="col-md-6">
-      <div class="button" style="display: flex; margin: 3px;">
-        <a href="{{ url_for('main.business') }}"><button class=" btn btn-danger">Business Pitch</button></a>
-        <a href="{{ url_for('main.creative') }}"><button class=" btn btn-primary">Creative(Arts)</button></a>
-        <a href="{{ url_for('main.sports') }}"><button class=" btn btn-success">Sports</button></a>
-        <a href="{{ url_for('main.youth') }}"><button class=" btn btn-dark">Youth</button></a>
+      <div id="" style="overflow-y: scroll; height: 400px">
+        <div class="business">
+          <h2>BUSINESS</h2>
+          <p>
+            Business is an ever evolving market and industry. Everyone is coming
+            up with a service or essential that everyone will need now and in
+            the future.
+          </p>
+          <p>
+            That said. You have to be unique and draw attention to the product
+            pr the service your selling. The competition is high and your bound
+            to get people that can steal your idea. Here you can log in, practice and make
+            your pitches and revise them at your own time.
+          </p>
+          <p>Click the link to see business pitches that were made recently.</p>
+          <a href="{{ url_for('main.business') }}"
+            ><button class="btn btn-link">Business pitch</button></a
+          >
+        </div>
+
+        <div class="creative">
+          <h2>CREATIVE(ARTS)</h2>
+          <p>
+            Art si an important and will always be an important part of our
+            lives. We see it everywhere and get different feelings when we see
+            it on different media.
+          </p>
+          <p>
+            There are a lot of people indulging in different arts some more
+            popular and common around the worlds than others. If you were to OR
+            are involved in the art space and industry.How would you build and
+            make your business unique
+          </p>
+          <p>
+            Take a look at the creatives page and make a pitch that is unique
+            and will make you stand out
+          </p>
+          <a href="{{ url_for('main.creative') }}"
+            ><button class="btn btn-link">Creative(Arts) pitches</button></a
+          >
+        </div>
+
+        <div class="sports">
+          <h2>SPORTS</h2>
+          <p>
+            After the just concluded <strong>TOKYO 2020 Olympics</strong> One of
+            the most unifying factors and aspects of our lives has to be the
+            Olympics.
+          </p>
+          <p>
+            We all love watching the best in their given disciplines show us
+            what true prowess and hard work looks like.
+            <strong
+              >Michael Phelps,Usain Bolt, Eliud Kipchoge, Simon Biles and LeBron
+              James</strong
+            >
+            to name a few have gifted and brought the world together.
+          </p>
+          <p>
+            If you were to advertise and promote your sport in your country,
+            where would you start and how would you make sure it achieves
+            international recognition.
+          </p>
+          <p>Here are a few pitches that can help you think broadly.</p>
+          <a href="{{ url_for('main.sports') }}"
+            ><button class="btn btn-link">Sports pitches</button></a
+          >
+        </div>
+
+        <div class="youth">
+          <h2>YOUTH</h2>
+          <p>
+            You've probably heard that the millennial community is next in line
+            in shaping the world and the younger community
+          </p>
+          <p>
+            It goes without saying that there's a lot to be done otherwise 2030
+            won't be as promising as out forefathers wanted it to be.
+            Limitations like
+            <i
+              >Global warming,racism,Dictatorship, corruption to say a few are
+              some of the major limitations that most countries struggle
+              with.</i
+            >
+          </p>
+          <p>
+            Say yu had the power to change the current limitations our world
+            faces. How would you implement your power
+          </p>
+          <p>Have a look at what others suggested.</p>
+          <a href="{{ url_for('main.youth') }}"
+            ><button class="btn btn-link">Youth pitches</button></a
+          >
+        </div>
       </div>
       {% else %}
       <h1>SIGN IN TO VIEW CATEGORIES</h1>
@@ -38,6 +118,5 @@
     </div>
   </div>
 </div>
-
 
 {% endblock %}
