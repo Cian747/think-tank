@@ -8,59 +8,43 @@
   <title></title>
 </head>
 
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/navbar.css')}}">
+{% endblock %}
+
 <body>
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/home">ThinkTank</a>
+        <a class="navbar-brand" id="Land" href="/">ThinkTank</a>
       </div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/home">Home</a></li>
-        <li><a href="/pitches">Pitches</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        {% if current_user.is_authenticated %}
-        <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-        <li style="color:white;padding:15px;">{{current_user.username}}</li>
-        <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
-        {% else %}
-        <li><a href="{{url_for('auth.login')}}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-        <li><a href="{{url_for('auth.register')}}"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
-        {% endif %}
-      </ul>
+    <ul class="nav navbar-nav">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/pitches">Pitches</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false">View categories<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{ url_for('main.business')}}">Business</a></li>
+          <li><a href="{{ url_for('main.sports')}}">Sports</a></li>
+          <li><a href="{{ url_for('main.youth')}}">Youth</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="{{ url_for('main.creative')}}">Creative(Arts)</a></li>
+        </ul>
+      </li>
+      {% if current_user.is_authenticated %}
+      <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+      <li class="navbar-text" style="color:black; padding: 2px;">Signed in as {{ current_user.username }}</li>
+      <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+      {% else %}
+      <li><a href="{{url_for('auth.login')}}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+      <li><a href="{{url_for('auth.register')}}"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
+      {% endif %}
+    </ul>
     </div>
   </nav>
 </body>
 
 </html>
-
-
-
-
-
-<!-- <div class="navbar navbar-inverse" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"> ThinkTank </a>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/">Home</a></li>
-        {% if current_user.is_authenticated %}
-        <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-        <li style="color:white;padding:15px;">{{current_user.username}}</li>
-        <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
-        {% else %}
-        <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
-        {%endif%}
-      </ul>
-    </div>
-
-  </div>
-</div> -->

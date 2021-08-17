@@ -12,10 +12,19 @@
 
     {{wtf.quick_form(pitch_form)}}
 
+    <div class="redirect fs-30">
+        <h1 style="font-family: 'Pacifico', cursive;">Go to category</h1>
+        <hr>
+        <a href="{{ url_for('main.business') }}"><button class="btn btn-danger">Business</button></a>
+        <a href="{{ url_for('main.youth') }}"><button class="btn btn-default">Youth</button></a>
+        <a href="{{ url_for('main.creative') }}"><button class="btn btn-success">Creative</button></a>
+        <a href="{{ url_for('main.sports') }}"><button class="btn btn-primary">Sports</button></a>
+    </div>
+
 </div>
 
 <div class="col-md-7">
-    <h1 id="pitch-title">Pitches</h1>
+    <h2 id="pitch-title" style="text-decoration: underline; font-size: 40px">Pitches</h2>
     <div class="row">
     {{ macro.displayPitches(pitches) }}
     </div>

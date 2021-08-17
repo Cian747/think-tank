@@ -10,7 +10,7 @@
                 <cite>
                     <h3>Category : {{ pitch.category_name }}</h3>
                 </cite>
-                <p class='lead'>{{ pitch.pitch_content }}</p>
+                <p class='lead'>{{ pitch.pitch_content| truncate(15) }}</p>
                 <cite class='text'><strong>Posted on:{{ pitch.posted }}</strong></cite>
                 <a href="{{ url_for('main.detail',id=pitch.id)}}"><button class="btn btn-success" style="margin-top: 10px;">Read & Comment</button></a>
             </blockquote>
@@ -26,9 +26,11 @@
 
 {% macro commentFound(comments) %}
 {% for comment in comments or [] %}
-<div class="card">
-    <h1>{{ comment.user.username }}</h1>
-    <p class="title">{{ comment.com_write }}</p>
+<div class="comment">
+    <h3> Written by: {{ comment.list.username }}</h3>
+    <hr>
+    <p>{{ comment.com_write }}</p>
+    <h3 class="card-text">posted on : {{ comment.date }}</h3>
 </div>
 {% endfor %}
 {% endmacro %}

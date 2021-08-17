@@ -7,14 +7,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
 
         <div class="col-md-7">
 
             {% if user.profile_pic_path %}
 
-            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail" width="100%" height="200">
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail" width="100%"
+                height="200">
 
             {%else%}
             <p>No profile picture</p>
@@ -42,7 +43,7 @@
             </form>
             <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
             {% endif %}
-                <div class="row">
+            <div class="row">
                 <div class="container">
                     <h1>Your Pitches</h1>
                     <hr>
@@ -52,11 +53,11 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 
-        
+
 
     {% endblock %}
 

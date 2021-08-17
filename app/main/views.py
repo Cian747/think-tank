@@ -11,7 +11,7 @@ def landing():
     '''
     Greeting and landing page when a user launches the application
     '''
-    title = "ThinkTank"
+    title = "ThinkTank - Home"
     return render_template('landing.html', title=title)
 
 
@@ -39,8 +39,7 @@ def pitch():
 	
     if pitch_form.validate_on_submit():
         pitch = Pitch(pitch_content = pitch_form.pitch.data,category_name = pitch_form.category.data,user = current_user)
-        db.session.add(pitch)
-        db.session.commit()
+        pitch.save_pitch()
 
         return redirect(url_for('main.pitch'))
 	
@@ -49,18 +48,19 @@ def pitch():
 
 
 @main.route('/pitch/detail/<int:id>', methods = ['GET','POST'])
+@login_required
 def detail(id):
     '''
     Displays specific pitch detail
     '''
-    comments = Comment.query.get(id)
     one_pitch = Pitch.query.filter_by(id = id).first()
+    comments = Comment.query.filter_by(pitch_id = id).all()
     com_form = CommentForm()
     if com_form.validate_on_submit():
-        comment_write = Comment(com_write = com_form.comment.data)
-        db.session.add(comment_write)
-        db.session.commit()
-        return redirect(url_for('main.detail'), id = one_pitch.id)
+        comment_write = Comment(pitch_id = one_pitch.id,com_write = com_form.comment.data,user = current_user.id)
+        comment_write.save_comment()
+
+        return redirect(url_for('main.detail', id = one_pitch.id))
  
 
     return render_template('pitch-detail.html',com_form = com_form,one_pitch = one_pitch,comments = comments)
@@ -77,8 +77,7 @@ def business():
 	
     if pitch_form.validate_on_submit():
         pitch = Pitch(pitch_content = pitch_form.pitch.data,category_name = pitch_form.category.data,user = current_user)
-        db.session.add(pitch)
-        db.session.commit()
+        pitch.save_pitch()
 
         return redirect(url_for('main.business'))
 
@@ -99,8 +98,7 @@ def creative():
 	
     if pitch_form.validate_on_submit():
         pitch = Pitch(pitch_content = pitch_form.pitch.data,category_name = pitch_form.category.data,user = current_user)
-        db.session.add(pitch)
-        db.session.commit()
+        pitch.save_pitch()
 
         return redirect(url_for('main.creative'))
 
@@ -121,8 +119,7 @@ def sports():
 	
     if pitch_form.validate_on_submit():
         pitch = Pitch(pitch_content = pitch_form.pitch.data,category_name = pitch_form.category.data,user = current_user)
-        db.session.add(pitch)
-        db.session.commit()
+        pitch.save_pitch()
 
         return redirect(url_for('main.sports'))
 
@@ -142,8 +139,7 @@ def youth():
 	
     if pitch_form.validate_on_submit():
         pitch = Pitch(pitch_content = pitch_form.pitch.data,category_name = pitch_form.category.data,user = current_user)
-        db.session.add(pitch)
-        db.session.commit()
+        pitch.save_pitch()
 
         return redirect(url_for('main.youth'))
 
@@ -176,7 +172,7 @@ def update_profile(uname):
         db.session.commit()
 
         return redirect(url_for('.profile',uname=user.username))
-
+    title = f'{current_user.username}'
     return render_template('profile/update.html',form =form)
 
 @main.route('/user/<uname>/update/pic',methods= ['GET','POST'])
@@ -196,25 +192,28 @@ def update_pic(uname):
                     
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/review/<int:id>',methods = ['GET','POST'])
+@main.route('/pitch-detail/<int:id>',methods = ['GET','POST'])
 def thumbs_up(id):
     pitch = Pitch.query.filter_by(id = id).first()
-    if pitch.upVote is None:
-        sum = pitch.upVote
-        total = sum + 1
-        pitch_two = Pitch(upVote = total)
-        db.session.add(pitch_two)
-        db.session.commit()
+    if request.args:
+        if request.args.get['upvote']:
+                sum = pitch.upVote
+                total = sum + 1
+                pitch_two = Pitch(upVote = total)
+                db.session.add(pitch_two)
+                db.session.commit()
     return redirect(url_for('main.thumbs_up'))
 
 
-@main.route('/review/<int:id>',methods = ['GET','POST'])
+@main.route('/pitch-detail/<int:id>',methods = ['GET','POST'])
 def thumbs_down(id):
     pitch = Pitch.query.get(id).first()
-    if pitch.downVote is None:
-        pitch.downVote = pitch.downVote + 1
-        db.session.add(pitch)
-        db.session.commit()
+    if request.form:
+        if request.args.get['downvote']:
+            if pitch.downVote == 0 :
+                pitch.downVote = pitch.downVote + 1
+                db.session.add(pitch)
+                db.session.commit()
     return redirect(url_for('main.thumbs_down'))
 
 

@@ -1,13 +1,23 @@
-{% extends 'base.html' %} 
-{% import 'macros.html' as macro %} 
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
 
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}" />
 {% endblock %}
 
- {% block content %}
+{% block content %}
 <div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="image">
+      <img src="{{ url_for('static',filename='photos/maker_launch_crhe.svg') }}" alt="" height="400" width="500%"
+        style="text-align: center"/>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-6">
       <h2>Most recent Pitches:</h2>
@@ -17,7 +27,7 @@
     {%if current_user.is_authenticated %}
     <h1>Categories</h1>
     <div class="col-md-6">
-      <div id="" style="overflow-y: scroll; height: 400px">
+      <div id="" style="overflow-y: scroll; height: 600px">
         <div class="business">
           <h2>BUSINESS</h2>
           <p>
@@ -32,9 +42,7 @@
             your pitches and revise them at your own time.
           </p>
           <p>Click the link to see business pitches that were made recently.</p>
-          <a href="{{ url_for('main.business') }}"
-            ><button class="btn btn-link">Business pitch</button></a
-          >
+          <a href="{{ url_for('main.business') }}"><button class="btn btn-link">Business pitch</button></a>
         </div>
 
         <div class="creative">
@@ -54,9 +62,7 @@
             Take a look at the creatives page and make a pitch that is unique
             and will make you stand out
           </p>
-          <a href="{{ url_for('main.creative') }}"
-            ><button class="btn btn-link">Creative(Arts) pitches</button></a
-          >
+          <a href="{{ url_for('main.creative') }}"><button class="btn btn-link">Creative(Arts) pitches</button></a>
         </div>
 
         <div class="sports">
@@ -69,10 +75,8 @@
           <p>
             We all love watching the best in their given disciplines show us
             what true prowess and hard work looks like.
-            <strong
-              >Michael Phelps,Usain Bolt, Eliud Kipchoge, Simon Biles and LeBron
-              James</strong
-            >
+            <strong>Michael Phelps,Usain Bolt, Eliud Kipchoge, Simon Biles and LeBron
+              James</strong>
             to name a few have gifted and brought the world together.
           </p>
           <p>
@@ -81,9 +85,7 @@
             international recognition.
           </p>
           <p>Here are a few pitches that can help you think broadly.</p>
-          <a href="{{ url_for('main.sports') }}"
-            ><button class="btn btn-link">Sports pitches</button></a
-          >
+          <a href="{{ url_for('main.sports') }}"><button class="btn btn-link">Sports pitches</button></a>
         </div>
 
         <div class="youth">
@@ -96,20 +98,16 @@
             It goes without saying that there's a lot to be done otherwise 2030
             won't be as promising as out forefathers wanted it to be.
             Limitations like
-            <i
-              >Global warming,racism,Dictatorship, corruption to say a few are
+            <i>Global warming,racism,Dictatorship, corruption to say a few are
               some of the major limitations that most countries struggle
-              with.</i
-            >
+              with.</i>
           </p>
           <p>
             Say yu had the power to change the current limitations our world
             faces. How would you implement your power
           </p>
           <p>Have a look at what others suggested.</p>
-          <a href="{{ url_for('main.youth') }}"
-            ><button class="btn btn-link">Youth pitches</button></a
-          >
+          <a href="{{ url_for('main.youth') }}"><button class="btn btn-link">Youth pitches</button></a>
         </div>
       </div>
       {% else %}

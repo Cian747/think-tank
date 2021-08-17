@@ -33,6 +33,7 @@ def register():
         db.session.commit()
 
         mail_message("Welcome to ThinkTank","email/welcome_user",user.email,user=user)
+        flash("You will receive a welcoming email on your email-inbox. Thank you.")
 
         return redirect(url_for('auth.login'))
     title = "New Account"
@@ -43,4 +44,4 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.landing"))
