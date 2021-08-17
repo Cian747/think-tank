@@ -1,73 +1,36 @@
-## SETUP INSTALLATIONS
-* Initialize git & make your repo and first commit
+# THINKTANK
+#### ThinkTank is a pitch-posting website, {Date of current version}
+#### By **[CIAN](https://github.com/Cian747)**
+## Description
+ThinkTank is an application that stores and hosts pitching ideas. You can comment vote and add to your
+pitches. You can also make comment and learn form other people's pitches.
+## Setup/Installation Requirements
+* clone the git repo to your account
 ```
-git init 
+git clone https://github.com/Cian747/think-tank
 ```
-* python virtual env
+* Open the app files and make necessary tests.
 ```
-python3.9 -m venv virtual
+./start.sh
 ```
-* Flask version
+* For tests
 ```
-pip install flask==1.1.4
+python manage.py test
 ```
-* SQLAlchemy
-```
-pip install flask-SQLAlchemy==2.2
-```
-* Flask-script
-```
-pip install flask-script
-```
-* Flask-Migrate
-```
-pip install flask-migrate==2.1.1
-```
-* Flask-Wtf
-```
-pip install flask-wtf
-```
-* Werkzeug
-```
-pip install -U Werkzeug==0.16.0
-```
-* psycopg2
-```
-pip install psycopg2-binary
-```
-* Flask login
-```
-pip install flask-login
-```
-* Email validator
-```
-pip install email-validator
-```
-* Uploading images 
-```
-pip install flask-uploads
-```
-* Sending Email
-```
-pip install flask-mail
-```
-* Simplemde
-```
-pip install flask-simplemde markdown2
-```
-* Gunicorn
-```
-python3.9 -m  pip install gunicorn
-```
-* requirements.txt
-```
-pip freeze > requirements.txt
-```
-* Heroku
-```
-heroku login
-```
-* Heroku create app
-```
-heroku create <name of app>
-```
+* Push changes to the repo
+* Check and confirm that the project is responsive on different page views and sizes
+* Deploy to heroku
+## Known Bugs
+None
+## Technologies Used
+* CSS
+* Python
+* Mako
+* Shell
+* PostgresSQL
+## Support and contact details
+You  can reach me on cianomondi@gmail.com
+### License
+[MIT LICENSE](license.txt)
+
+Copyright (c) {year} **CIAN**
