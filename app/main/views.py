@@ -61,6 +61,19 @@ def detail(id):
         comment_write.save_comment()
 
         return redirect(url_for('main.detail', id = one_pitch.id))
+
+    if request.args.get('upVote'):
+        one_pitch.upVote = one_pitch.upVote + 1
+        print(one_pitch.upVote)
+        db.session.add(one_pitch)
+        db.session.commit()
+        return redirect(url_for('main.detail',id = one_pitch.id))
+
+    elif request.args.get('downVote'):
+        one_pitch.downVote = one_pitch.downVote + 1
+        db.session.add(one_pitch)
+        db.session.commit()
+        return redirect(url_for('main.detail', id = one_pitch.id))
  
 
     return render_template('pitch-detail.html',com_form = com_form,one_pitch = one_pitch,comments = comments)
@@ -193,27 +206,20 @@ def update_pic(uname):
     return redirect(url_for('main.profile',uname=uname))
 
 @main.route('/pitch-detail/<int:id>',methods = ['GET','POST'])
-def thumbs_up(id):
+def votes(id):
     pitch = Pitch.query.filter_by(id = id).first()
-    if request.args:
-        if request.args.get['upvote']:
-                sum = pitch.upVote
-                total = sum + 1
-                pitch_two = Pitch(upVote = total)
-                db.session.add(pitch_two)
-                db.session.commit()
-    return redirect(url_for('main.thumbs_up'))
 
 
-@main.route('/pitch-detail/<int:id>',methods = ['GET','POST'])
-def thumbs_down(id):
-    pitch = Pitch.query.get(id).first()
-    if request.form:
-        if request.args.get['downvote']:
-            if pitch.downVote == 0 :
-                pitch.downVote = pitch.downVote + 1
-                db.session.add(pitch)
-                db.session.commit()
-    return redirect(url_for('main.thumbs_down'))
+
+# @main.route('/pitch-detail/<int:id>',methods = ['GET','POST'])
+# def thumbs_down(id):
+#     pitch = Pitch.query.get(id).first()
+#     if request.form:
+#         if request.args.get['downvote']:
+#             if pitch.downVote == 0 :
+#                 pitch.downVote = pitch.downVote + 1
+#                 db.session.add(pitch)
+#                 db.session.commit()
+#     return redirect(url_for('main.thumbs_down'))
 
 

@@ -14,7 +14,7 @@ class TestComment(unittest.TestCase):
         Define the set up
         '''
         self.new_user = User(username = 'James',password = 'potato', email = 'james@ms.com')
-        self.new_comment = Comment(id = 1,user = 2,pitch_id = 2,date = '1660-08-09',com_write='great work')
+        self.new_comment = Comment(id = 1,user = 2,pitch_id = 15,date = '1660-08-09',com_write='great work')
 
     def tearDown(self):
         '''
@@ -35,7 +35,7 @@ class TestComment(unittest.TestCase):
         '''
         self.assertEqual(self.new_comment.id, 1)
         self.assertEqual(self.new_comment.user,2)
-        self.assertEqual(self.new_comment.pitch_id,2)
+        self.assertEqual(self.new_comment.pitch_id,15)
         self.assertEqual(self.new_comment.date,'1660-08-09')
         self.assertEqual(self.new_comment.com_write,'great work')
 

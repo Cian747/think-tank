@@ -19,10 +19,10 @@
 <div class="vote" style="font-size: 15px; display: flex;">
     <form action="">
     <button class="btn"style="margin-right: 1rem">
-    <i  name = "upvote" value = "upvote" class="fas fa-thumbs-up"  action="{{url_for('main.thumbs_up', id = one_pitch.id)}}?upvote=1" method = 'POST'>{{ one_pitch.upVote }}</i>
+   <a href="{{url_for('main.detail', id = one_pitch.id)}}? upVote=1"><i  name = "upVote" value = "upVote" class="fas fa-thumbs-up" >{{ one_pitch.upVote }}</i></a>
     </button>
     <button class="btn"  style="margin-right: 1rem">
-    <i name = "downvote" value = "downvote" class="far fa-thumbs-down" action="{{url_for('main.thumbs_down', id = one_pitch.id)}}" method = 'POST'>{{ one_pitch.downVote }}</i>
+   <a href="{{url_for('main.detail', id = one_pitch.id)}}?downVote=1"> <i name = "downVote" value = "downVote" class="far fa-thumbs-down">{{ one_pitch.downVote }}</i></a>
     </button>
     </form>
   </div>
